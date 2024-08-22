@@ -322,6 +322,31 @@
           return expect(pd.getAggregator([], []).value()).toBe((1 + 3) / (2 + 4));
         });
       });
+      describe("with a0-a00 input", function() {
+        var aoaInput, pd;
+        aoaInput = [
+          {
+            key: 'a0',
+            ym: '2020-01'
+          }, {
+            key: 'a0',
+            ym: '2020-02'
+          }, {
+            key: 'a00',
+            ym: '2020-01'
+          }, {
+            key: 'a00',
+            ym: '2020-02'
+          }
+        ];
+        pd = new $.pivotUtilities.PivotData(aoaInput, {
+          rows: ["key", "ym"],
+          cols: []
+        });
+        return it("has correctly-ordered row keys", function() {
+          return expect(pd.getRowKeys()).toEqual([["a0", "2020-01"], ["a0", "2020-02"], ["a00", "2020-01"], ["a00", "2020-02"]]);
+        });
+      });
       return describe("with rows/cols", function() {
         var pd;
         pd = new $.pivotUtilities.PivotData(fixtureData, {

@@ -267,7 +267,8 @@ callWithJQuery ($) ->
             b1 = b.shift()
             if a1 != b1
                 if rd.test(a1) and rd.test(b1) #both are digit chunks
-                    return a1.replace(rz, ".0") - b1.replace(rz, ".0")
+                    numDiff = a1.replace(rz, ".0") - b1.replace(rz, ".0")
+                    return if numDiff != 0 then numDiff else a1.length - b1.length
                 else
                     return (if a1 > b1 then 1 else -1)
         return a.length - b.length

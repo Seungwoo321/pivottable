@@ -520,7 +520,7 @@
     rz = /^0/;
     naturalSort = (function(_this) {
       return function(as, bs) {
-        var a, a1, b, b1, nas, nbs;
+        var a, a1, b, b1, nas, nbs, numDiff;
         if ((bs != null) && (as == null)) {
           return -1;
         }
@@ -571,7 +571,12 @@
           b1 = b.shift();
           if (a1 !== b1) {
             if (rd.test(a1) && rd.test(b1)) {
-              return a1.replace(rz, ".0") - b1.replace(rz, ".0");
+              numDiff = a1.replace(rz, ".0") - b1.replace(rz, ".0");
+              if (numDiff !== 0) {
+                return numDiff;
+              } else {
+                return a1.length - b1.length;
+              }
             } else {
               return (a1 > b1 ? 1 : -1);
             }
